@@ -17,10 +17,12 @@ ProductsBelongsToCategory(Product, Category)
 ```
 
 ### Carrinho
+```
 CarthasManyProducts(Cart, Product)
 ProductBelongsToManyCart(Product, Cart)
 CartsBelongstoCustomer(Customer, Cart)
 CustomerhasManyCart(Customer, Cart)
+```
 
 ### Compra
 
