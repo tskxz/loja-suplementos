@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Users;
+use App\Livewire\Categorias;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,5 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/utilizadores', Users::class)->name('users');
+    Route::get('/categorias', Categorias::class)->name('categorias');
 });
