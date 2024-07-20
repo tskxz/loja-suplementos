@@ -11,6 +11,8 @@ class Products extends Component
 
     public $product;
     public $confirmingProductUpdate = false;
+    public $confirmingProductDeletion = false;
+
 
     protected $rules = [
         'product.name' => 'required|string|min:3',
@@ -37,6 +39,19 @@ class Products extends Component
         $this->product = $product;
         $this->confirmingProductUpdate = true;
     }
+
+    public function confirmProductDeletion($id)
+    {
+        $this->confirmingProductDeletion = $id;
+    }
+
+    public function deleteProduct(Product $product)
+    {
+        $product->delete();
+        $this->confirmingProductDeletion = false;
+        session()->flash('message', 'Product Deleted Successfully');
+    }
+
 
     public function saveProduct(){
         $this->validate();
