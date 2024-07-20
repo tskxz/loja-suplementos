@@ -28,13 +28,13 @@ CustomerhasManyCart(Customer, Cart)
 
 ```
 PurchaseBelongsToCustomer(Purchase, Customer)
-PurchaseBelongsToCart(Purchase, Cart)
+PurchaseHasManyCart(Purchase, Cart)
 CustomerHasManyPurchases(Customer, Purchase)
 ```
 ### Reserva
 
 ```
 ReservationBelongsToCustomer(Customer, Cart)
-ReservationBelongsToCart(Reservation, Cart)
+ReservationHasManyCart(Reservation, Cart)
 CustomerHasManyReservations(Customer, Reservation)
 ```
