@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/utilizadores', Users::class);
+
 
 Route::middleware([
     'auth:sanctum',
@@ -28,4 +28,6 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/utilizadores', Users::class)->name('users');
 });
