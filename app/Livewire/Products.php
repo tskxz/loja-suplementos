@@ -26,5 +26,33 @@ class Products extends Component
         ]);
     }
 
+    public function confirmProductAdd()
+    {
+        $this->reset(['product']);
+        $this->confirmingProductUpdate = true;
+    }
+
+    public function confirmProductEdit(Product $product){
+        $this->resetErrorBag();
+        $this->product = $product;
+        $this->confirmingProductUpdate = true;
+    }
+
+    public function saveProduct(){
+        $this->validate();
+
+        if(isset($this->product->id)){
+            $this->product->save();
+            session()->flash('message', 'Product saved successfully');
+        } else {
+            Product::create([
+                'name' => $this->product->name,
+                'price' => $this->product->price,
+            ]);
+            session()->flash('message', 'Product created successfully');
+        }
+        $this->confirmingProductUpdate = false;
+    }
+
 
 }
