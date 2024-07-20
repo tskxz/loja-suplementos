@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Produtos;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('produtos', Produtos::class);
 
 Route::middleware([
     'auth:sanctum',
