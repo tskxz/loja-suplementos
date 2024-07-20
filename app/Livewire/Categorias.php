@@ -12,7 +12,7 @@ class Categorias extends Component
     use WithPagination;
 
     public $perPage = 10;
-    public $sortField = 'name';
+    public $sortField = 'nome';
     public $sortDirection = 'asc';
 
     protected $queryString = ['sortField', 'sortDirection'];
@@ -104,7 +104,7 @@ class Categorias extends Component
     public function render()
     {
         return view('livewire.categorias', [
-            'recirds' => Categoria::orderBy($this->sortField, $this->sortDirection)->paginate($this->perPage)
+            'records' => Categoria::orderBy($this->sortField, $this->sortDirection)->paginate($this->perPage)
         ])->layout('layouts.app');
     }
 }
