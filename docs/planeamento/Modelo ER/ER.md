@@ -1,11 +1,11 @@
 ## Entidades
 ```
 Category(name)
-Product(name, price)
+Product(name, price, stock)
 Customer(name)
-Cart(cart_date, status)
-Purchase(purchase_date)
-Reservation(reservation_date)
+Cart(cart_date, quantity)
+Purchase(purchase_date, status)
+Reservation(reservation_date, status)
 ```
 
 ## Relações
