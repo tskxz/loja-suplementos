@@ -1,11 +1,11 @@
 ## Entidades
 ```
 Category(name)
-Product(name, price)
+Product(name, price, stock)
 Customer(name)
-Cart(cart_date, status)
-Purchase(purchase_date)
-Reservation(reservation_date)
+Cart(cart_date, quantity)
+Purchase(purchase_date, status)
+Reservation(reservation_date, status)
 ```
 
 ## Relações
@@ -28,13 +28,13 @@ CustomerhasManyCart(Customer, Cart)
 
 ```
 PurchaseBelongsToCustomer(Purchase, Customer)
-PurchaseBelongsToCart(Purchase, Cart)
+PurchaseHasManyCart(Purchase, Cart)
 CustomerHasManyPurchases(Customer, Purchase)
 ```
 ### Reserva
 
 ```
 ReservationBelongsToCustomer(Customer, Cart)
-ReservationBelongsToCart(Reservation, Cart)
+ReservationHasManyCart(Reservation, Cart)
 CustomerHasManyReservations(Customer, Reservation)
 ```
