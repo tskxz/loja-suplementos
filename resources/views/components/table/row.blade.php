@@ -1,3 +1,3 @@
-<div>
-    <!-- When there is no desire, all things are at peace. - Laozi -->
-</div>
+<tr {{ $attributes->merge(['class' => 'bg-white']) }}>
+    {{ $slot }}
+</tr>
