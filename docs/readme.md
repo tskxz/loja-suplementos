@@ -16,3 +16,4 @@ O objetivo das reservas feitas pelos clientes é garantir que seus produtos dese
 ## Diagrama das Entidades e Relações
 
 ![diagrama](/docs/planeamento/Modelo%20ER/diagramas/modelo_light_nottrans.drawio.png)
+![modeloer](/docs/planeamento/Modelo%20ER/diagramas/modelo_er.drawio.png)
