@@ -84,14 +84,15 @@
             </div>
             <div class="col-span-6 sm:col-span-4">
                 <x-label for="categoria_id" value="{{ __('Categoria') }}" />
-                <select id="categoria_id" class="mt-1 block w-full" wire:model="categoria_id">
+                <x-select id="categoria_id" class="mt-1 block w-full" wire:model="categoria_id">
                     <option value="">{{ __('Select Categoria') }}</option>
                     @foreach(App\Models\Categoria::all() as $categoria)
                         <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
                     @endforeach
-                </select>
+                </x-select>
                 <x-input-error for="categoria_id" class="mt-2" />
             </div>
+
             <div class="col-span-6 sm:col-span-4">
                 <x-label for="preco" value="{{ __('Preco') }}" />
                 <x-input id="preco" type="number" class="mt-1 block w-full" wire:model="preco" />
