@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('compras', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('carrinho_id')->constrained();
+            $table->string('status'); // pendente, em_andamento, finalizada, cancelada
             $table->timestamps();
         });
     }
