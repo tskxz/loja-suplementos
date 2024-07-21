@@ -11,6 +11,7 @@ use Livewire\WithFileUploads;
 class Produtos extends Component
 {
     use WithPagination;
+    use WithFileUploads;
 
     public $perPage = 10;
     public $sortField = 'nome';
