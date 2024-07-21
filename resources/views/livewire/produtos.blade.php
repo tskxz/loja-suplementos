@@ -103,6 +103,19 @@
                 <x-input id="stock" type="number" class="mt-1 block w-full" wire:model="stock" />
                 <x-input-error for="stock" class="mt-2" />
             </div>
+            <div class="col-span-6 sm:col-span-4">
+                <x-label for="newImagem" value="{{ __('Imagem') }}" />
+                <x-input id="newImagem" type="file" class="mt-1 block w-full" wire:model="newImagem" />
+                <x-input-error for="newImagem" class="mt-2" />
+            </div>
+            @if ($imagem)
+            <div class="col-span-6 sm:col-span-4">
+                <x-label value="{{ __('Imagem Atual') }}" />
+                <img src="{{ Storage::url('imagens/' . $imagem) }}" alt="Imagem do Produto" class="mt-1 block w-full">
+            </div>
+        @endif
+
+
         </x-slot>
     </x-modals.form>
     <!-- Delete Confirmation Modal -->
