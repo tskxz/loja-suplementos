@@ -6,6 +6,8 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Produto;
 
+use Livewire\WithFileUploads;
+
 class Produtos extends Component
 {
     use WithPagination;
@@ -19,6 +21,7 @@ class Produtos extends Component
     public $rId = null;
     public $isFormOpen = false;
     public $nome, $descricao, $preco, $stock, $categoria_id;
+    public $imagem, $newImagem;
 
     public $dId = '';
     public $isDeleteModalOpen = false;
@@ -64,6 +67,7 @@ class Produtos extends Component
                     $this->preco = $produto->preco;
                     $this->stock = $produto->stock;
                     $this->categoria_id = $produto->categoria_id;
+                    $this->imagem = $produto->imagem;
                 }
             }
             $this->isFormOpen = true;
@@ -78,8 +82,8 @@ class Produtos extends Component
             'descricao' =>'required',
             'preco' =>'required|numeric',
             'stock' =>'required|numeric',
-            'categoria_id' => 'required|exists:categorias,id'
-            
+            'categoria_id' => 'required|exists:categorias,id',
+            'newImagem' => 'nullable|image',
         ];
 
         $validatedData = $this->validate($ruleFields);
@@ -88,9 +92,18 @@ class Produtos extends Component
             if (!empty($this->rId)) {
                 $produto = $produtoQuery->find($this->rId);
                 if ($produto) {
+                    if($this->newImagem){
+                        if($produto->imagem){
+                            Storage::delete('public/images/' . $produto->imagem);
+                        }
+                        $validatedData['imagem'] = $this->newImagem->store('images', 'public');
+                    }
                     $produto->update($validatedData);
                 }
             } else {
+                if($this->newImagem){
+                    $validatedData['imagem'] = $this->newImagem->store('imagens', 'public');
+                }
                 $produtoQuery->create($validatedData);
             }
             $this->closeFormModal();
