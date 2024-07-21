@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Carrinho extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'product_id', 'quantity'];
+    protected $fillable = ['user_id', 'product_id', 'quantidade'];
 }
