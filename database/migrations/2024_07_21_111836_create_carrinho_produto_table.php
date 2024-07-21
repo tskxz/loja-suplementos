@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('carrinho_id')->constrained();
             $table->foreignId('produto_id')->constrained();
+            $table->integer('quantidade');
             $table->timestamps();
         });
     }
