@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\WithPagination;
+use App\Models\Produto;
 
 class Produtos extends Component
 {
@@ -16,7 +18,7 @@ class Produtos extends Component
 
     public $rId = null;
     public $isFormOpen = false;
-    public $nome, $descricao, $preco, $stock, $categoria_id;
+    public $nome, $descricao, $preco, $stock;
 
     public $dId = '';
     public $isDeleteModalOpen = false;
@@ -61,7 +63,6 @@ class Produtos extends Component
                     $this->descricao = $produto->descricao;
                     $this->preco = $produto->preco;
                     $this->stock = $produto->stock;
-                    $this->categoria_id = $produto->categoria_id;
                 }
             }
             $this->isFormOpen = true;
@@ -76,7 +77,7 @@ class Produtos extends Component
             'descricao' =>'required',
             'preco' =>'required|numeric',
             'stock' =>'required|numeric',
-            'categoria_id' =>'required|numeric',
+            
         ];
 
         $validatedData = $this->validate($ruleFields);

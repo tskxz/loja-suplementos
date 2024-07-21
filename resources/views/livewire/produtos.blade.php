@@ -16,9 +16,12 @@
                 <x-slot name="header">
                     <x-table.header>No.</x-table.header>
                     <x-table.header sortable wire:click.prevent="sortBy('nome')" :direction="$sortField === 'nome' ? $sortDirection : null">Nome</x-table.header>
-                    <x-table.header sortable wire:click.prevent="sortBy('descricao')" :direction="$sortField === 'descricao' ? $sortDirection : null">Descricao</x-table.header>
-                    <x-table.header sortable wire:click.prevent="sortBy('preco')" :direction="$sortField === 'preco' ? $sortDirection : null">Preco</x-table.header>
-                    <x-table.header sortable wire:click.prevent="sortBy('stock')" :direction="$sortField === 'stock' ? $sortDirection : null">Stock</x-table.header>
+                    <x-table.header sortable wire:click.prevent="sortBy('descricao')"
+                        :direction="$sortField === 'descricao' ? $sortDirection : null">Descricao</x-table.header>
+                        <x-table.header sortable wire:click.prevent="sortBy('preco')"
+                        :direction="$sortField === 'preco' ? $sortDirection : null">Preco</x-table.header>
+                        <x-table.header sortable wire:click.prevent="sortBy('stock')"
+                        :direction="$sortField === 'stock' ? $sortDirection : null">Stock</x-table.header>
                     <x-table.header>Action</x-table.header>
                 </x-slot>
                 <x-slot name="body">
@@ -28,7 +31,7 @@
                     @forelse ($records as $key => $record)
                         <x-table.row>
                             <x-table.cell> {{ ++$i }}</x-table.cell>
-                            <x-table.cell>{{ $record->name }}</x-table.cell>
+                            <x-table.cell>{{ $record->nome }}</x-table.cell>
                             <x-table.cell> {{ $record->descricao }}</x-table.cell>
                             <x-table.cell> {{ $record->preco }}</x-table.cell>
                             <x-table.cell> {{ $record->stock }}</x-table.cell>
@@ -41,7 +44,7 @@
                         </x-table.row>
                     @empty
                         <x-table.row>
-                            <x-table.cell colspan=4>
+                            <x-table.cell colspan=6>
                                 <div class="flex justify-center items-center">
                                     <span class="font-medium py-8 text-gray-400 text-xl">
                                         No data found...
@@ -82,7 +85,7 @@
                 <x-input id="preco" type="number" class="mt-1 block w-full" wire:model="preco" />
                 <x-input-error for="preco" class="mt-2" />
             </div>
-            div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-4">
                 <x-label for="stock" value="{{ __('Stock') }}" />
                 <x-input id="stock" type="number" class="mt-1 block w-full" wire:model="stock" />
                 <x-input-error for="stock" class="mt-2" />
