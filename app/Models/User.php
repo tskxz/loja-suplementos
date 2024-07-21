@@ -62,8 +62,4 @@ class User extends Authenticatable
     public function carrinho(): HasOne{
         return $this->hasOne(Carrinho::class);
     }
-
-    public function cargos(): BelongsTo{
-        return $this->belongsTo(Cargo::class);
-    }
 }
