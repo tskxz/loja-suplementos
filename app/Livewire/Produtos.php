@@ -104,7 +104,7 @@ class Produtos extends Component
                 }
             } else {
                 if($this->newImagem){
-                    $validatedData['imagem'] = $this->newImagem->store('imagens', 'public');
+                    $validatedData['imagem'] = $this->newImagem->store('images', 'public');
                 }
                 $produtoQuery->create($validatedData);
             }
