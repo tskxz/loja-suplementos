@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('descricao');
             $table->double('preco', 8,2);
             $table->integer('stock');
-            // $table->foreignId('categoria_id')->constrained();
+            $table->foreignId('categoria_id')->constrained();
             $table->timestamps();
         });
     }
