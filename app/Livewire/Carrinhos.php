@@ -21,8 +21,16 @@ class Carrinhos extends Component
     public $carrinho;
     public $produto_id;
     public $quantidade = 1;
+    public $isAddModalOpen = false;
+    public $isDeleteModalOpen = false;
+    public $deleteProdutoId;
 
     public function mount()
+    {
+        $this->loadCarrinho();
+    }
+
+    public function loadCarrinho()
     {
         $this->carrinho = Carrinho::where('user_id', Auth::id())->first();
         if (!$this->carrinho) {
@@ -30,7 +38,21 @@ class Carrinhos extends Component
         }
     }
 
-    public function addProduto()
+    public function openAddModal()
+    {
+        $this->reset(['produto_id', 'quantidade']);
+        $this->isAddModalOpen = true;
+    }
+
+    public function closeFormModal()
+    {
+        $this->isAddModalOpen = false;
+        $this->isDeleteModalOpen = false;
+        $this->reset();
+        $this->loadCarrinho(); // Recarregar o carrinho ao fechar o modal
+    }
+
+    public function save()
     {
         $this->validate([
             'produto_id' => 'required|exists:produtos,id',
@@ -39,29 +61,53 @@ class Carrinhos extends Component
 
         $produto = Produto::find($this->produto_id);
 
-        if ($this->carrinho->produtos->contains($produto->id)) {
-            $this->carrinho->produtos()->updateExistingPivot($produto->id, ['quantidade' => $this->quantidade]);
+        if ($this->carrinho) {
+            if ($this->carrinho->produtos->contains($produto->id)) {
+                $this->carrinho->produtos()->updateExistingPivot($produto->id, ['quantidade' => $this->quantidade]);
+            } else {
+                $this->carrinho->produtos()->attach($produto->id, ['quantidade' => $this->quantidade]);
+            }
+
+            session()->flash('success', 'Produto adicionado ao carrinho!');
         } else {
-            $this->carrinho->produtos()->attach($produto->id, ['quantidade' => $this->quantidade]);
+            session()->flash('error', 'Carrinho não encontrado.');
         }
 
-        session()->flash('success', 'Produto adicionado ao carrinho!');
-        $this->reset(['produto_id', 'quantidade']);
+        $this->closeFormModal();
+        $this->loadCarrinho(); // Recarregue o carrinho após salvar
     }
 
     public function removeProduto($produto_id)
     {
-        $this->carrinho->produtos()->detach($produto_id);
-        session()->flash('success', 'Produto removido do carrinho!');
+        $this->deleteProdutoId = $produto_id;
+        $this->isDeleteModalOpen = true;
+    }
+
+    public function closeDeleteModal()
+    {
+        $this->isDeleteModalOpen = false;
+        $this->deleteProdutoId = null;
+        $this->loadCarrinho(); // Recarregar o carrinho ao fechar o modal de exclusão
+    }
+
+    public function deleteProduto()
+    {
+        if ($this->deleteProdutoId) {
+            $this->carrinho->produtos()->detach($this->deleteProdutoId);
+            session()->flash('success', 'Produto removido do carrinho!');
+        }
+        $this->closeDeleteModal();
+        $this->loadCarrinho(); // Recarregar o carrinho após excluir o produto
     }
 
     public function render()
     {
         $produtos = Produto::orderBy($this->sortField, $this->sortDirection)->paginate($this->perPage);
+        $itens = $this->carrinho ? $this->carrinho->produtos : collect();
 
         return view('livewire.carrinhos', [
             'produtos' => $produtos,
-            'itens' => $this->carrinho->produtos
+            'itens' => $itens,
         ])->layout('layouts.app');
     }
 }
