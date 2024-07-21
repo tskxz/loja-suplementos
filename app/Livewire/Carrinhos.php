@@ -47,7 +47,6 @@ class Carrinhos extends Component
 
         session()->flash('success', 'Produto adicionado ao carrinho!');
         $this->reset(['produto_id', 'quantidade']);
-        
     }
 
     public function removeProduto($produto_id)
