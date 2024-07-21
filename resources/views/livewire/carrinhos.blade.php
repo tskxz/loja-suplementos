@@ -1,9 +1,5 @@
 <div>
-<x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Meu carrinho') }}
-        </h2>
-    </x-slot>
+    <h2>Meu Carrinho</h2>
 
     <form wire:submit.prevent="addProduto">
         <div>
@@ -28,13 +24,11 @@
 
     <h3>Itens no Carrinho</h3>
     <ul>
-        @forelse($itens as $item)
+        @foreach($itens as $item)
             <li>
                 {{ $item->nome }} - Quantidade: {{ $item->pivot->quantidade }}
                 <button wire:click="removeProduto({{ $item->id }})">Remover</button>
             </li>
-        @empty
-            <li>Nenhum item no carrinho.</li>
-        @endforelse
+        @endforeach
     </ul>
 </div>
