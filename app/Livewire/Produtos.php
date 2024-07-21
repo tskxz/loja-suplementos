@@ -96,15 +96,17 @@ class Produtos extends Component
                 if ($produto) {
                     if($this->newImagem){
                         if($produto->imagem){
-                            Storage::delete('public/images/' . $produto->imagem);
+                            Storage::disk('public')->delete($produto->imagem);
                         }
                         $validatedData['imagem'] = $this->newImagem->store('images', 'public');
+                    } else {
+                        $validatedData['imagem'] = $produto->imagem;
                     }
                     $produto->update($validatedData);
                 }
             } else {
                 if($this->newImagem){
-                    $validatedData['imagem'] = $this->newImagem->store('imagens', 'public');
+                    $validatedData['imagem'] = $this->newImagem->store('images', 'public');
                 }
                 $produtoQuery->create($validatedData);
             }
