@@ -11,6 +11,10 @@
             <x-button wire:click.prevent="openAddModal" class="float-right">
                 {{ __('Adicionar Produto') }}
             </x-button>
+
+            <x-button class="float-right ml-4">
+                {{ __('Efetuar Compra') }}
+            </x-button>
         </div>
 
         <!-- Products Table -->
