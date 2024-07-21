@@ -58,4 +58,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function carrinho(): HasOne{
+        return $this->hasOne(Carrinho::class);
+    }
 }
