@@ -85,7 +85,7 @@ class Produtos extends Component
             'preco' =>'required|numeric',
             'stock' =>'required|numeric',
             'categoria_id' => 'required|exists:categorias,id',
-            'newImagem' => 'nullable|image',
+            'imagem' => 'nullable|image',
         ];
 
         $validatedData = $this->validate($ruleFields);
@@ -96,15 +96,17 @@ class Produtos extends Component
                 if ($produto) {
                     if($this->newImagem){
                         if($produto->imagem){
-                            Storage::delete('public/images/' . $produto->imagem);
+                            Storage::disk('public')->delete($produto->imagem);
                         }
-                        $validatedData['imagem'] = $this->newImagem->store('images', 'public');
+                        $imagePath = $this->imagem->store('imagens', 'public');
+                        $validatedData['imagem'] = $imagePath;
                     }
                     $produto->update($validatedData);
                 }
             } else {
                 if($this->newImagem){
-                    $validatedData['imagem'] = $this->newImagem->store('imagens', 'public');
+                    $imagePath = $this->imagem->store('imagens', 'public');
+                    $validatedData['imagem'] = $imagePath;
                 }
                 $produtoQuery->create($validatedData);
             }
