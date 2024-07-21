@@ -18,6 +18,7 @@
                     <x-table.header sortable wire:click.prevent="sortBy('nome')" :direction="$sortField === 'nome' ? $sortDirection : null">Nome</x-table.header>
                     <x-table.header sortable wire:click.prevent="sortBy('descricao')"
                         :direction="$sortField === 'descricao' ? $sortDirection : null">Descricao</x-table.header>
+                        <x-table.header sortable wire:click.prevent="sortBy('categoria_id')" :direction="$sortField === 'categoria_id' ? $sortDirection : null">Categoria</x-table.header>
                         <x-table.header sortable wire:click.prevent="sortBy('preco')"
                         :direction="$sortField === 'preco' ? $sortDirection : null">Preco</x-table.header>
                         <x-table.header sortable wire:click.prevent="sortBy('stock')"
@@ -33,6 +34,7 @@
                             <x-table.cell> {{ ++$i }}</x-table.cell>
                             <x-table.cell>{{ $record->nome }}</x-table.cell>
                             <x-table.cell> {{ $record->descricao }}</x-table.cell>
+                            <x-table.cell>{{ $record->categoria->nome }}</x-table.cell>
                             <x-table.cell> {{ $record->preco }}</x-table.cell>
                             <x-table.cell> {{ $record->stock }}</x-table.cell>
                             <x-table.cell>
@@ -44,7 +46,7 @@
                         </x-table.row>
                     @empty
                         <x-table.row>
-                            <x-table.cell colspan=6>
+                            <x-table.cell colspan=7>
                                 <div class="flex justify-center items-center">
                                     <span class="font-medium py-8 text-gray-400 text-xl">
                                         No data found...
@@ -79,6 +81,16 @@
                 <x-label for="descricao" value="{{ __('Descricao') }}" />
                 <x-input id="descricao" type="text" class="mt-1 block w-full" wire:model="descricao" />
                 <x-input-error for="descricao" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4">
+                <x-label for="categoria_id" value="{{ __('Categoria') }}" />
+                <select id="categoria_id" class="mt-1 block w-full" wire:model="categoria_id">
+                    <option value="">{{ __('Select Categoria') }}</option>
+                    @foreach(App\Models\Categoria::all() as $categoria)
+                        <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
+                    @endforeach
+                </select>
+                <x-input-error for="categoria_id" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4">
                 <x-label for="preco" value="{{ __('Preco') }}" />
