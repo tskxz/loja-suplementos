@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Users;
 use App\Livewire\Categorias;
 use App\Livewire\Produtos;
+use App\Livewire\Carrinhos;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,5 @@ Route::middleware([
     Route::get('/utilizadores', Users::class)->name('users');
     Route::get('/categorias', Categorias::class)->name('categorias');
     Route::get('/produtos', Produtos::class)->name('produtos');
+    Route::get('/carrinhos', Carrinhos::class)->name('carrinhos');
 });
