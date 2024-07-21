@@ -51,38 +51,38 @@
     </div>
 
     <!-- Add Product Modal -->
-<x-modals.form wire:model.live="isAddModalOpen">
-    <x-slot name="title">
-        {{ __('Adicionar Produto ao Carrinho') }}
-    </x-slot>
+    <x-modals.form wire:model.live="isAddModalOpen">
+        <x-slot name="title">
+            {{ __('Adicionar Produto ao Carrinho') }}
+        </x-slot>
 
-    <x-slot name="content">
-        <div class="col-span-6 sm:col-span-4">
-            <x-label for="produto_id" value="{{ __('Produto') }}" />
-            <x-select id="produto_id" wire:model="produto_id">
-                <option value="">Escolha um produto</option>
-                @foreach($produtos as $produto)
-                    <option value="{{ $produto->id }}">{{ $produto->nome }}</option>
-                @endforeach
-            </x-select>
-            <x-input-error for="produto_id" class="mt-2" />
-        </div>
-        <div class="col-span-6 sm:col-span-4">
-            <x-label for="quantidade" value="{{ __('Quantidade') }}" />
-            <x-input id="quantidade" type="number" class="mt-1 block w-full" wire:model="quantidade" min="1" />
-            <x-input-error for="quantidade" class="mt-2" />
-        </div>
-    </x-slot>
+        <x-slot name="content">
+            <div class="col-span-6 sm:col-span-4">
+                <x-label for="produto_id" value="{{ __('Produto') }}" />
+                <x-select id="produto_id" wire:model="produto_id">
+                    <option value="">Escolha um produto</option>
+                    @foreach($produtos as $produto)
+                        <option value="{{ $produto->id }}">{{ $produto->nome }}</option>
+                    @endforeach
+                </x-select>
+                <x-input-error for="produto_id" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4">
+                <x-label for="quantidade" value="{{ __('Quantidade') }}" />
+                <x-input id="quantidade" type="number" class="mt-1 block w-full" wire:model="quantidade" min="1" />
+                <x-input-error for="quantidade" class="mt-2" />
+            </div>
+        </x-slot>
 
-    <x-slot name="footer">
-        <x-secondary-button wire:click.prevent="closeAddModal">
-            {{ __('Cancelar') }}
-        </x-secondary-button>
-        <x-primary-button wire:click.prevent="save" wire:loading.attr="disabled" class="ms-3">
-            {{ __('Adicionar') }}
-        </x-primary-button>
-    </x-slot>
-</x-modals.form>
+        <x-slot name="footer">
+            <x-secondary-button wire:click.prevent="closeAddModal">
+                {{ __('Cancelar') }}
+            </x-secondary-button>
+            <x-primary-button wire:click.prevent="save" wire:loading.attr="disabled" class="ms-3">
+                {{ __('Adicionar') }}
+            </x-primary-button>
+        </x-slot>
+    </x-modals.form>
 
     <!-- Delete Confirmation Modal -->
     <x-confirmation-modal wire:model.live="isDeleteModalOpen">

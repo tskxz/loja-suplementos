@@ -25,10 +25,12 @@ class Carrinhos extends Component
     public $isDeleteModalOpen = false;
     public $deleteProdutoId;
 
-    //form field
-    public $isFormOpen = false;
-    
     public function mount()
+    {
+        $this->loadCarrinho();
+    }
+
+    public function loadCarrinho()
     {
         $this->carrinho = Carrinho::where('user_id', Auth::id())->first();
         if (!$this->carrinho) {
@@ -40,13 +42,14 @@ class Carrinhos extends Component
     {
         $this->reset(['produto_id', 'quantidade']);
         $this->isAddModalOpen = true;
-        $this->isFormOpen = true;
     }
 
-    public function closeAddModal()
+    public function closeFormModal()
     {
         $this->isAddModalOpen = false;
-        $this->isFormOpen = false;
+        $this->isDeleteModalOpen = false;
+        $this->reset();
+        $this->loadCarrinho(); // Recarregar o carrinho ao fechar o modal
     }
 
     public function save()
@@ -55,23 +58,23 @@ class Carrinhos extends Component
             'produto_id' => 'required|exists:produtos,id',
             'quantidade' => 'required|integer|min:1',
         ]);
-    
+
         $produto = Produto::find($this->produto_id);
-    
+
         if ($this->carrinho) {
             if ($this->carrinho->produtos->contains($produto->id)) {
                 $this->carrinho->produtos()->updateExistingPivot($produto->id, ['quantidade' => $this->quantidade]);
             } else {
                 $this->carrinho->produtos()->attach($produto->id, ['quantidade' => $this->quantidade]);
             }
-    
+
             session()->flash('success', 'Produto adicionado ao carrinho!');
         } else {
             session()->flash('error', 'Carrinho não encontrado.');
         }
-    
-        $this->closeAddModal();
-        $this->mount(); // Recarregue o carrinho
+
+        $this->closeFormModal();
+        $this->loadCarrinho(); // Recarregue o carrinho após salvar
     }
 
     public function removeProduto($produto_id)
@@ -84,6 +87,7 @@ class Carrinhos extends Component
     {
         $this->isDeleteModalOpen = false;
         $this->deleteProdutoId = null;
+        $this->loadCarrinho(); // Recarregar o carrinho ao fechar o modal de exclusão
     }
 
     public function deleteProduto()
@@ -93,12 +97,7 @@ class Carrinhos extends Component
             session()->flash('success', 'Produto removido do carrinho!');
         }
         $this->closeDeleteModal();
-    }
-
-    public function closeFormModal()
-    {
-        $this->isFormOpen = false;
-        $this->reset();
+        $this->loadCarrinho(); // Recarregar o carrinho após excluir o produto
     }
 
     public function render()
@@ -108,7 +107,7 @@ class Carrinhos extends Component
 
         return view('livewire.carrinhos', [
             'produtos' => $produtos,
-            'itens' => $itens
+            'itens' => $itens,
         ])->layout('layouts.app');
     }
 }
