@@ -18,13 +18,19 @@
             <x-slot name="header">
                 <x-table.header>Produto</x-table.header>
                 <x-table.header>Quantidade</x-table.header>
+                <x-table.header>Imagem</x-table.header>
                 <x-table.header>Ação</x-table.header>
             </x-slot>
             <x-slot name="body">
                 @forelse($itens as $item)
                     <x-table.row>
                         <x-table.cell>{{ $item->nome }}</x-table.cell>
+                        
                         <x-table.cell>{{ $item->pivot->quantidade }}</x-table.cell>
+
+                        <x-table.cell>
+                            <img src="{{ Storage::url($item->imagem) }}" alt="{{ $item->imagem }}" class="h-16 w-16 object-cover">
+                        </x-table.cell>
                         <x-table.cell>
                             <button wire:click="removeProduto({{ $item->id }})"
                                     class="font-medium text-red-600 dark:text-red-500 hover:underline">
@@ -34,7 +40,7 @@
                     </x-table.row>
                 @empty
                     <x-table.row>
-                        <x-table.cell colspan="3" class="text-center">
+                        <x-table.cell colspan="4" class="text-center">
                             Nenhum item no carrinho.
                         </x-table.cell>
                     </x-table.row>
