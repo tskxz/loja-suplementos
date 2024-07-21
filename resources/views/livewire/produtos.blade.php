@@ -111,7 +111,7 @@
             @if ($imagem)
             <div class="col-span-6 sm:col-span-4">
                 <x-label value="{{ __('Imagem Atual') }}" />
-                <img src="{{ Storage::url('imagens/' . $imagem) }}" alt="Imagem do Produto" class="mt-1 block w-full">
+                <img src="{{ Storage::url($imagem) }}" alt="Imagem do Produto" class="mt-1 block w-full">
             </div>
         @endif
 
