@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->text('descricao');
-            table->double('preco', 8,2);
+            $table->double('preco', 8,2);
             $table->integer('stock');
             $table->foreignId('categoria_id')->constrained();
             $table->timestamps();
