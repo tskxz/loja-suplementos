@@ -16,6 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
+                    @if(Auth::check() && Auth::user()->cargo == "admin")
                     <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                         {{ __('Utilizadores') }}
                     </x-nav-link>
@@ -23,10 +24,11 @@
                     <x-nav-link href="{{ route('categorias') }}" :active="request()->routeIs('categorias')">
                         {{ __('Categorias') }}
                     </x-nav-link>
-
                     <x-nav-link href="{{ route('produtos') }}" :active="request()->routeIs('produtos')">
                         {{ __('Produtos') }}
                     </x-nav-link>
+                    @endif
+                    
                 </div>
             </div>
 
