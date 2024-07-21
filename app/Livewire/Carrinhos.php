@@ -23,6 +23,7 @@ class Carrinhos extends Component
     public $quantidade = 1;
     public $isAddModalOpen = false;
     public $isDeleteModalOpen = false;
+    public $isComprarModalOpen = false;
     public $deleteProdutoId;
 
     public function mount()
@@ -48,6 +49,7 @@ class Carrinhos extends Component
     {
         $this->isAddModalOpen = false;
         $this->isDeleteModalOpen = false;
+        $this->isComprarModalOpen = false;
         $this->reset();
         $this->loadCarrinho(); // Recarregar o carrinho ao fechar o modal
     }
@@ -83,11 +85,20 @@ class Carrinhos extends Component
         $this->isDeleteModalOpen = true;
     }
 
+    public function comprarProduto(){
+        $this->isComprarModalOpen = true;
+    }
+
     public function closeDeleteModal()
     {
         $this->isDeleteModalOpen = false;
         $this->deleteProdutoId = null;
         $this->loadCarrinho(); // Recarregar o carrinho ao fechar o modal de exclusão
+    }
+
+    public function closeComprarModal(){
+        $this->isComprarModalOpen = false;
+        $this->loadCarrinho(); // Recarregar o carrinho após fechar o modal de compra
     }
 
     public function deleteProduto()

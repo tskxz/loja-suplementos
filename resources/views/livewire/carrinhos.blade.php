@@ -12,7 +12,7 @@
                 {{ __('Adicionar Produto') }}
             </x-button>
 
-            <x-button class="float-right ml-4">
+            <x-button wire:click="comprarProduto" class="float-right ml-4">
                 {{ __('Efetuar Compra') }}
             </x-button>
         </div>
@@ -113,4 +113,25 @@
             </x-danger-button>
         </x-slot>
     </x-confirmation-modal>
+
+    <!-- Compra Confirmation Modal -->
+    <x-dialog-modal wire:model.live="isComprarModalOpen">
+        <x-slot name="title">
+            {{ __('Efetuar Compra') }}
+        </x-slot>
+
+        <x-slot name="content">
+            {{ __('Tem certeza de que deseja efetuar compra do carrinho?') }}
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-secondary-button wire:click.prevent="closeComprarModal">
+                {{ __('Cancelar') }}
+            </x-secondary-button>
+            <x-primary-button class="ms-3" wire:click.prevent="#" wire:loading.attr="disabled">
+                {{ __('Comprar') }}
+            </x-primary-button>
+        </x-slot>
+    </x-dialog-modal>
+
 </div>
