@@ -1,5 +1,9 @@
 <div>
-    <h2>Meu Carrinho</h2>
+<x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Meu carrinho') }}
+        </h2>
+    </x-slot>
 
     <form wire:submit.prevent="addProduto">
         <div>
