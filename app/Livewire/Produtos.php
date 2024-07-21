@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use App\Models\Produto;
 
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class Produtos extends Component
 {
