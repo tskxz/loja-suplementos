@@ -113,9 +113,11 @@ class Carrinhos extends Component
     }
 
     public function compraCarrinho(){
+        
         $this->validate([
             'carrinho.id' => 'required|exists:carrinhos,id',
         ]);
+        
 
         // Criar uma nova compra
         Compra::create([
@@ -124,7 +126,9 @@ class Carrinhos extends Component
             'status' => 'pendente',
         ]);
 
-        session()->flash('success', 'Compra efetuada com sucesso! A compra deve ser aceita pelo administrador');
+        $this->carrinho->produtos()->detach();
+
+        session()->flash('success', 'Compra efetuada com sucesso! Aguarde que o administrador contacte consigo!');
 
         // fechar modal
         $this->closeComprarModal();
