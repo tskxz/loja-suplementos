@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use App\Models\Carrinho;
 use App\Models\Produto;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Compra;
 
 class Carrinhos extends Component
 {
@@ -109,6 +110,25 @@ class Carrinhos extends Component
         }
         $this->closeDeleteModal();
         $this->loadCarrinho(); // Recarregar o carrinho após excluir o produto
+    }
+
+    public function compraCarrinho(){
+        $this->validate([
+            'carrinho.id' => 'required|exists:carrinhos,id',
+        ]);
+
+        // Criar uma nova compra
+        Compra::create([
+            'user_id' => $this->carrinho->user_id,
+            'carrinho_id' => $this->carrinho->id,
+            'status' => 'pendente',
+        ]);
+
+        session()->flash('success', 'Compra efetuada com sucesso! A compra deve ser aceita pelo administrador');
+
+        // fechar modal
+        $this->closeComprarModal();
+        $this->loadCarrinho(); // Recarregar o carrinho após fechar o modal de compra e efetuar a compra
     }
 
     public function render()
