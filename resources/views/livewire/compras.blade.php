@@ -17,6 +17,7 @@
                     <x-table.header>No.</x-table.header>
                     <x-table.header sortable wire:click.prevent="sortBy('carrinho_id')" :direction="$sortField === 'carrinho_id' ? $sortDirection : null">Carrinho</x-table.header>
                     <x-table.header sortable wire:click.prevent="sortBy('user_id')" :direction="$sortField === 'user_id' ? $sortDirection : null">User</x-table.header>
+                    <x-table.header sortable wire:click.prevent="sortBy('user_id')" :direction="$sortField === 'user_id' ? $sortDirection : null">Email</x-table.header>
                         <x-table.header sortable wire:click.prevent="sortBy('status')" :direction="$sortField === 'status' ? $sortDirection : null">Status</x-table.header>
                     <x-table.header>Action</x-table.header>
                 </x-slot>
@@ -29,6 +30,7 @@
                             <x-table.cell> {{ ++$i }}</x-table.cell>
                             <x-table.cell>{{ $record->carrinho_id }}</x-table.cell>
                             <x-table.cell>{{ $record->carrinho->user->name }}</x-table.cell>
+                            <x-table.cell>{{ $record->carrinho->user->email }}</x-table.cell>
                             <x-table.cell>{{ $record->status }}</x-table.cell>
                             <x-table.cell>
                                 <button wire:click="edit('{{ $record->id }}')"
